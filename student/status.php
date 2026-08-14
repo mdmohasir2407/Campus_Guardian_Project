@@ -13,6 +13,7 @@ $late_entries = $db->query("SELECT * FROM late_entries WHERE student_id = $stude
 $leave_requests = $db->query("SELECT * FROM leave_requests WHERE student_id = $student_id ORDER BY id DESC")->fetchAll();
 $half_days = $db->query("SELECT * FROM half_day_permissions WHERE student_id = $student_id ORDER BY id DESC")->fetchAll();
 
+<<<<<<< HEAD
 // Compile all requests into a unified chronological history feed (newest first)
 $all_requests = [];
 foreach ($late_entries as $le) {
@@ -66,6 +67,8 @@ usort($all_requests, function ($a, $b) {
     return strcmp($b['created_at'], $a['created_at']);
 });
 
+=======
+>>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
 require_once __DIR__ . '/../includes/header.php';
 require_once __DIR__ . '/../includes/sidebar.php';
 ?>
@@ -78,15 +81,23 @@ require_once __DIR__ . '/../includes/sidebar.php';
 
         <div class="mb-4">
             <h3 class="fw-bold mb-1">Request Approval Status Timeline</h3>
+<<<<<<< HEAD
             <p class="text-muted mb-0"> (Faculty Staff &rarr; HOD Final Approval).</p>
+=======
+            <p class="text-muted mb-0">Track multi-tier approval stages (Faculty Staff &rarr; HOD Final Approval).</p>
+>>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
         </div>
 
         <ul class="nav nav-pills mb-4" id="statusTabs" role="tablist">
             <li class="nav-item">
+<<<<<<< HEAD
                 <button class="nav-link active fw-semibold" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-pane" type="button"><i class="bi bi-list-task me-1"></i> All Requests (<?php echo count($all_requests); ?>)</button>
             </li>
             <li class="nav-item">
                 <button class="nav-link fw-semibold" id="late-tab" data-bs-toggle="tab" data-bs-target="#late-pane" type="button"><i class="bi bi-clock-history me-1"></i> Late Entries (<?php echo count($late_entries); ?>)</button>
+=======
+                <button class="nav-link active fw-semibold" id="late-tab" data-bs-toggle="tab" data-bs-target="#late-pane" type="button"><i class="bi bi-clock-history me-1"></i> Late Entries (<?php echo count($late_entries); ?>)</button>
+>>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
             </li>
             <li class="nav-item">
                 <button class="nav-link fw-semibold" id="leave-tab" data-bs-toggle="tab" data-bs-target="#leave-pane" type="button"><i class="bi bi-calendar-check me-1"></i> Leave Applications (<?php echo count($leave_requests); ?>)</button>
@@ -97,6 +108,7 @@ require_once __DIR__ . '/../includes/sidebar.php';
         </ul>
 
         <div class="tab-content" id="statusTabContent">
+<<<<<<< HEAD
             <!-- All Requests Pane (Chronological Timeline) -->
             <div class="tab-pane fade show active" id="all-pane" role="tabpanel">
                 <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
@@ -153,6 +165,10 @@ require_once __DIR__ . '/../includes/sidebar.php';
 
             <!-- Late Entries Pane -->
             <div class="tab-pane fade" id="late-pane" role="tabpanel">
+=======
+            <!-- Late Entries Pane -->
+            <div class="tab-pane fade show active" id="late-pane" role="tabpanel">
+>>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
                 <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
                     <div class="table-responsive">
                         <table class="table table-custom align-middle mb-0">

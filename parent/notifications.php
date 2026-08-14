@@ -10,11 +10,14 @@ $db = Database::getConnection();
 
 $parent_email = $_SESSION['parent_email'] ?? '';
 $student_id = $_SESSION['student_id'] ?? 0;
+<<<<<<< HEAD
 $user_id = $_SESSION['user_id'] ?? 0;
 
 if ($user_id) {
     $db->prepare("UPDATE notifications SET is_read = 1 WHERE user_id = ? AND is_read = 0")->execute([$user_id]);
 }
+=======
+>>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
 
 // Fetch Student / Ward details
 $stmt_st = $db->prepare("SELECT s.*, d.dept_name, d.dept_code FROM students s JOIN departments d ON s.department_id = d.id WHERE s.id = ?");

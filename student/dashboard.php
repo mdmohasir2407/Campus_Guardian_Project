@@ -9,6 +9,7 @@ $page_title = "Student Dashboard";
 $db = Database::getConnection();
 $student_id = $_SESSION['student_id'] ?? 0;
 
+<<<<<<< HEAD
 // Fetch student metrics (including late entries, leaves, and half-day permissions)
 $pending_count = $db->query("SELECT COUNT(*) FROM leave_requests WHERE student_id = $student_id AND status = 'pending'")->fetchColumn() +
                  $db->query("SELECT COUNT(*) FROM late_entries WHERE student_id = $student_id AND status = 'pending'")->fetchColumn() +
@@ -34,6 +35,18 @@ usort($recent_activity, function($a, $b) {
     return strcmp($b['created_at'], $a['created_at']);
 });
 $recent_activity = array_slice($recent_activity, 0, 5);
+=======
+// Fetch student metrics
+$late_count = $db->query("SELECT COUNT(*) FROM late_entries WHERE student_id = $student_id")->fetchColumn();
+$leave_count = $db->query("SELECT COUNT(*) FROM leave_requests WHERE student_id = $student_id")->fetchColumn();
+$pending_count = $db->query("SELECT COUNT(*) FROM leave_requests WHERE student_id = $student_id AND status = 'pending'")->fetchColumn() +
+                 $db->query("SELECT COUNT(*) FROM late_entries WHERE student_id = $student_id AND status = 'pending'")->fetchColumn();
+
+// Fetch recent requests
+$stmt_lates = $db->query("SELECT 'Late Entry' as req_type, date, arrival_time as detail, reason, status, created_at FROM late_entries WHERE student_id = $student_id ORDER BY id DESC LIMIT 3")->fetchAll();
+$stmt_leaves = $db->query("SELECT leave_type as req_type, start_date as date, CONCAT(total_days, ' Day(s)') as detail, reason, status, created_at FROM leave_requests WHERE student_id = $student_id ORDER BY id DESC LIMIT 3")->fetchAll();
+$recent_activity = array_merge($stmt_lates, $stmt_leaves);
+>>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
 
 require_once __DIR__ . '/../includes/header.php';
 require_once __DIR__ . '/../includes/sidebar.php';
@@ -65,6 +78,7 @@ require_once __DIR__ . '/../includes/sidebar.php';
                 <div class="card card-stat p-3">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
+<<<<<<< HEAD
                             <span class="text-muted fw-medium small text-uppercase">Pending Approvals</span>
                             <h2 class="fw-bold text-warning mb-0 mt-1"><?php echo $pending_count; ?></h2>
                         </div>
@@ -91,6 +105,34 @@ require_once __DIR__ . '/../includes/sidebar.php';
                             <h2 class="fw-bold text-primary mb-0 mt-1"><?php echo $total_count; ?></h2>
                         </div>
                         <div class="stat-icon bg-primary-soft text-primary"><i class="bi bi-folder-fill"></i></div>
+=======
+                            <span class="text-muted fw-medium small text-uppercase">Late Entries Logged</span>
+                            <h2 class="fw-bold text-dark mb-0 mt-1"><?php echo $late_count; ?></h2>
+                        </div>
+                        <div class="stat-icon bg-info-soft"><i class="bi bi-clock-history"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-stat p-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <span class="text-muted fw-medium small text-uppercase">Total Leaves Applied</span>
+                            <h2 class="fw-bold text-dark mb-0 mt-1"><?php echo $leave_count; ?></h2>
+                        </div>
+                        <div class="stat-icon bg-warning-soft"><i class="bi bi-calendar-check-fill"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-stat p-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <span class="text-muted fw-medium small text-uppercase">Pending Approvals</span>
+                            <h2 class="fw-bold text-warning mb-0 mt-1"><?php echo $pending_count; ?></h2>
+                        </div>
+                        <div class="stat-icon bg-primary-soft"><i class="bi bi-hourglass-split"></i></div>
+>>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
                     </div>
                 </div>
             </div>

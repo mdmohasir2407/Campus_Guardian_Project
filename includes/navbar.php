@@ -5,6 +5,7 @@
 $user_name = $_SESSION['name'] ?? 'User';
 $user_role = strtoupper($_SESSION['role'] ?? 'GUEST');
 
+<<<<<<< HEAD
 // Get unread notifications count and user profile photo
 $unread_count = 0;
 $user_photo = null;
@@ -12,14 +13,24 @@ if (isset($_SESSION['user_id'])) {
     try {
         $db = Database::getConnection();
         
+=======
+// Get unread notifications count
+$unread_count = 0;
+if (isset($_SESSION['user_id'])) {
+    try {
+        $db = Database::getConnection();
+>>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
         $stmt = $db->prepare("SELECT COUNT(*) as unread FROM notifications WHERE user_id = ? AND is_read = 0");
         $stmt->execute([$_SESSION['user_id']]);
         $res = $stmt->fetch();
         $unread_count = $res['unread'] ?? 0;
+<<<<<<< HEAD
         
         $stmt_photo = $db->prepare("SELECT photo FROM users WHERE id = ?");
         $stmt_photo->execute([$_SESSION['user_id']]);
         $user_photo = $stmt_photo->fetchColumn();
+=======
+>>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
     } catch (Exception $e) {}
 }
 ?>
@@ -36,7 +47,10 @@ if (isset($_SESSION['user_id'])) {
         </div>
 
         <ul class="navbar-nav ms-auto align-items-center">
+<<<<<<< HEAD
 
+=======
+>>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
             <!-- Dark Mode Switcher -->
             <li class="nav-item me-3">
                 <button class="btn btn-link nav-link px-2 text-secondary" id="btnThemeToggle" title="Toggle Light/Dark Theme">
@@ -59,6 +73,7 @@ if (isset($_SESSION['user_id'])) {
             <!-- User Profile Dropdown -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+<<<<<<< HEAD
                     <?php if (!empty($user_photo) && file_exists(UPLOAD_DIR_PHOTOS . $user_photo)): ?>
                         <img src="<?php echo BASE_URL; ?>/uploads/profile_photos/<?php echo htmlspecialchars($user_photo); ?>" class="rounded-circle border" style="width:36px; height:36px; object-fit:cover;">
                     <?php else: ?>
@@ -66,6 +81,11 @@ if (isset($_SESSION['user_id'])) {
                             <?php echo strtoupper(substr($user_name, 0, 1)); ?>
                         </div>
                     <?php endif; ?>
+=======
+                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width:36px; height:36px;">
+                        <?php echo strtoupper(substr($user_name, 0, 1)); ?>
+                    </div>
+>>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
                     <span class="d-none d-lg-inline text-dark fw-medium"><?php echo htmlspecialchars($user_name); ?></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="userDropdown">

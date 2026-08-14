@@ -12,7 +12,10 @@ $db = Database::getConnection();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'create_student') {
     $reg_no = sanitize($_POST['register_number'] ?? '');
     $student_code = sanitize($_POST['student_id_code'] ?? '');
+<<<<<<< HEAD
     $course_type = sanitize($_POST['course_type'] ?? 'UG');
+=======
+>>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
     $name = sanitize($_POST['name'] ?? '');
     $email = sanitize($_POST['student_email'] ?? '');
     $department_id = (int)($_POST['department_id'] ?? 0);
@@ -34,9 +37,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $user_id = $db->lastInsertId();
 
         // 2. Create Student profile
+<<<<<<< HEAD
         $s_stmt = $db->prepare("INSERT INTO students (user_id, register_number, student_id_code, course_type, name, department_id, year, section, phone, parent_name, parent_phone, parent_email, student_email) 
                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $s_stmt->execute([$user_id, $reg_no, $student_code, $course_type, $name, $department_id, $year, $section, $phone, $parent_name, $parent_phone, $parent_email, $email]);
+=======
+        $s_stmt = $db->prepare("INSERT INTO students (user_id, register_number, student_id_code, name, department_id, year, section, phone, parent_name, parent_phone, parent_email, student_email) 
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $s_stmt->execute([$user_id, $reg_no, $student_code, $name, $department_id, $year, $section, $phone, $parent_name, $parent_phone, $parent_email, $email]);
+>>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
 
         $db->commit();
         set_flash('success', "Student account for {$name} created successfully!");
@@ -122,7 +131,10 @@ require_once __DIR__ . '/../includes/sidebar.php';
                                     </td>
                                     <td>
                                         <span class="badge bg-secondary"><?php echo htmlspecialchars($st['dept_code']); ?></span>
+<<<<<<< HEAD
                                         <span class="badge bg-info text-dark"><?php echo htmlspecialchars($st['course_type'] ?? 'UG'); ?></span>
+=======
+>>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
                                         <span class="badge bg-light text-dark border">Year <?php echo htmlspecialchars($st['year']); ?> - Sec <?php echo htmlspecialchars($st['section']); ?></span>
                                     </td>
                                     <td>
@@ -175,6 +187,7 @@ require_once __DIR__ . '/../includes/sidebar.php';
                         </div>
                         <div class="col-md-4">
                             <label class="form-label fw-semibold">Department *</label>
+<<<<<<< HEAD
                             <select name="department_id" id="admin_department_id" class="form-select" required>
                                 <option value="">-- Select Department --</option>
                                 <?php 
@@ -183,12 +196,21 @@ require_once __DIR__ . '/../includes/sidebar.php';
                                     $dtype = in_array($d['dept_code'], $pg_codes) ? 'PG' : 'UG';
                                 ?>
                                     <option value="<?php echo $d['id']; ?>" data-type="<?php echo $dtype; ?>"><?php echo htmlspecialchars($d['dept_name']); ?> (<?php echo $d['dept_code']; ?>)</option>
+=======
+                            <select name="department_id" class="form-select" required>
+                                <?php foreach ($departments as $d): ?>
+                                    <option value="<?php echo $d['id']; ?>"><?php echo htmlspecialchars($d['dept_name']); ?> (<?php echo $d['dept_code']; ?>)</option>
+>>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
                                 <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label fw-semibold">Academic Year *</label>
+<<<<<<< HEAD
                             <select name="year" id="admin_academic_year" class="form-select" required>
+=======
+                            <select name="year" class="form-select" required>
+>>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
                                 <option value="I">I Year</option>
                                 <option value="II">II Year</option>
                                 <option value="III">III Year</option>
@@ -197,6 +219,7 @@ require_once __DIR__ . '/../includes/sidebar.php';
                         </div>
                         <div class="col-md-4">
                             <label class="form-label fw-semibold">Section *</label>
+<<<<<<< HEAD
                             <select name="section" class="form-select" required>
                                 <option value="A">Section A</option>
                                 <option value="B">Section B</option>
@@ -219,6 +242,18 @@ require_once __DIR__ . '/../includes/sidebar.php';
                                 <label class="form-label fw-semibold">Initial Password *</label>
                                 <input type="password" name="password" class="form-control" value="password123" required>
                             </div>
+=======
+                            <input type="text" name="section" class="form-control" value="A" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Student Phone *</label>
+                            <input type="text" name="phone" class="form-control" placeholder="9123456789" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Initial Password *</label>
+                            <input type="password" name="password" class="form-control" value="password123" required>
+                        </div>
+>>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
                         
                         <hr class="my-3">
                         <h6 class="fw-bold text-primary mb-2">Parent / Guardian Contact Information</h6>
@@ -247,6 +282,7 @@ require_once __DIR__ . '/../includes/sidebar.php';
 </div>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
+<<<<<<< HEAD
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const courseTypeSelect = document.getElementById('admin_course_type');
@@ -290,3 +326,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+=======
+>>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b

@@ -590,7 +590,10 @@ $page_title = "Login Portal";
         document.querySelectorAll('.role-tab-btn').forEach(function(b) { b.classList.remove('active'); });
         document.getElementById(tabId).classList.add('active');
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
 </script>
 </body>
 </html>
