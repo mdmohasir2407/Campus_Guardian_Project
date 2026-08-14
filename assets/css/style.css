@@ -1,0 +1,366 @@
+/* ==========================================================================
+   CampusGuardian - Modern Custom CSS & Design System
+   Bootstrap 5 Theme Extension
+   ========================================================================== */
+
+:root {
+    --cg-primary: #0f172a;
+    --cg-secondary: #3b82f6;
+    --cg-accent: #6366f1;
+    --cg-success: #10b981;
+    --cg-warning: #f59e0b;
+    --cg-danger: #ef4444;
+    --cg-info: #06b6d4;
+    --cg-bg-light: #f8fafc;
+    --cg-card-bg: #ffffff;
+    --cg-text-dark: #1e293b;
+    --cg-text-muted: #64748b;
+    --cg-border-color: #e2e8f0;
+    --cg-sidebar-width: 260px;
+    --cg-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --cg-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+    --cg-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] {
+    --cg-primary: #020617;
+    --cg-bg-light: #090d16;
+    --cg-card-bg: #1e293b;
+    --cg-text-dark: #f8fafc;
+    --cg-text-muted: #94a3b8;
+    --cg-border-color: #334155;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--cg-bg-light);
+    color: var(--cg-text-dark);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+}
+
+/* App Wrapper Layout */
+#wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+    overflow-x: hidden;
+}
+
+/* Sidebar Styling */
+#sidebar {
+    min-width: var(--cg-sidebar-width);
+    max-width: var(--cg-sidebar-width);
+    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+    color: #ffffff;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    min-height: 100vh;
+    box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+}
+
+#sidebar .sidebar-brand {
+    padding: 1.5rem 1.25rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.15);
+}
+
+#sidebar ul.components {
+    padding: 1rem 0;
+}
+
+#sidebar ul li a {
+    padding: 0.85rem 1.25rem;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    color: #94a3b8;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-left: 4px solid transparent;
+}
+
+#sidebar ul li a i {
+    font-size: 1.2rem;
+    margin-right: 0.85rem;
+    width: 24px;
+    text-align: center;
+}
+
+#sidebar ul li a:hover, #sidebar ul li.active > a {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+    border-left-color: var(--cg-secondary);
+}
+
+/* Main Content Area */
+#content {
+    width: 100%;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s;
+}
+
+/* Top Navbar */
+.top-navbar {
+    background-color: var(--cg-card-bg);
+    border-bottom: 1px solid var(--cg-border-color);
+    padding: 0.85rem 1.5rem;
+    box-shadow: var(--cg-shadow-sm);
+}
+
+/* Custom Cards */
+.card-stat {
+    border: none;
+    border-radius: 12px;
+    background-color: var(--cg-card-bg);
+    box-shadow: var(--cg-shadow-md);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.card-stat:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--cg-shadow-lg);
+}
+
+.stat-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+}
+
+.bg-primary-soft { background-color: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+.bg-success-soft { background-color: rgba(16, 185, 129, 0.15); color: #10b981; }
+.bg-warning-soft { background-color: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+.bg-danger-soft { background-color: rgba(239, 68, 68, 0.15); color: #ef4444; }
+.bg-info-soft { background-color: rgba(6, 182, 212, 0.15); color: #06b6d4; }
+
+/* Custom Tables */
+.table-custom {
+    background-color: var(--cg-card-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    color: var(--cg-text-dark);
+}
+
+.table-custom th {
+    background-color: rgba(0, 0, 0, 0.03);
+    color: var(--cg-text-muted);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--cg-border-color);
+    padding: 1rem;
+}
+
+.table-custom td {
+    padding: 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--cg-border-color);
+}
+
+/* User Avatar & Pill Badges */
+.avatar-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.badge-status {
+    padding: 0.45em 0.85em;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+}
+
+/* Dark Mode overrides for cards and modals */
+[data-theme="dark"] .card,
+[data-theme="dark"] .modal-content {
+    background-color: var(--cg-card-bg);
+    border-color: var(--cg-border-color);
+    color: var(--cg-text-dark);
+}
+
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select {
+    background-color: #0f172a;
+    border-color: #334155;
+    color: #f8fafc;
+}
+
+[data-theme="dark"] .form-control:focus,
+[data-theme="dark"] .form-select:focus {
+    background-color: #0f172a;
+    border-color: var(--cg-secondary);
+    color: #f8fafc;
+}
+
+/* Responsive & Animated Toggle adjustments */
+#sidebar {
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (max-width: 992px) {
+    #sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 1050;
+        margin-left: 0;
+        transform: translateX(-100%);
+    }
+    #sidebar.active {
+        transform: translateX(0);
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+    }
+}
+
+@media (min-width: 993px) {
+    #sidebar.active {
+        margin-left: calc(-1 * var(--cg-sidebar-width));
+    }
+}
+
+/* Backdrop Overlay Styling */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1040;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Eye Icon Show/Hide Password Toggle */
+.btn-password-toggle {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 30;
+    pointer-events: auto;
+    border: none;
+    background: transparent;
+    color: #64748b;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease, transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-password-toggle:hover {
+    color: #3b82f6 !important;
+    transform: translateY(-50%) scale(1.2);
+}
+
+.btn-password-toggle:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+/* ==========================================================================
+   Global Comprehensive Responsive Design System (Mobile, Tablet, Desktop)
+   ========================================================================== */
+
+/* Responsive Table Wrapper */
+.table-responsive {
+    border-radius: 12px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1rem;
+}
+
+/* Mobile Devices (<= 575px) */
+@media (max-width: 575px) {
+    .container-fluid {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+    
+    .top-navbar {
+        padding: 0.65rem 0.85rem !important;
+    }
+    
+    .top-navbar .dropdown-toggle span {
+        display: none !important; /* Keep avatar visible, hide text on small phones */
+    }
+
+    .card-stat {
+        margin-bottom: 12px;
+    }
+
+    .stat-icon {
+        width: 44px !important;
+        height: 44px !important;
+        font-size: 1.3rem !important;
+    }
+
+    .table-custom th, .table-custom td {
+        padding: 0.6rem 0.7rem !important;
+        font-size: 0.8rem !important;
+    }
+
+    .badge-status {
+        padding: 0.3em 0.55em !important;
+        font-size: 0.72rem !important;
+    }
+
+    /* Modals & Dialogs full touch support */
+    .modal-dialog {
+        margin: 0.5rem auto !important;
+        max-width: 96% !important;
+    }
+
+    .modal-header, .modal-footer {
+        padding: 0.85rem 1rem !important;
+    }
+
+    .modal-body {
+        padding: 1rem !important;
+    }
+}
+
+/* Tablets (576px - 991px) */
+@media (min-width: 576px) and (max-width: 991px) {
+    .container-fluid {
+        padding-left: 18px !important;
+        padding-right: 18px !important;
+    }
+
+    .card-stat {
+        margin-bottom: 15px;
+    }
+
+    .table-custom th, .table-custom td {
+        padding: 0.85rem !important;
+    }
+}
+
