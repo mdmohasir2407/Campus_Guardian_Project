@@ -10,7 +10,6 @@ $db = Database::getConnection();
 
 $parent_email = $_SESSION['parent_email'] ?? '';
 $student_id = $_SESSION['student_id'] ?? 0;
-<<<<<<< HEAD
 $parent_id = $_SESSION['user_id'] ?? 0;
 
 // Parent Photo & Password Updates
@@ -83,14 +82,19 @@ $stmt_p_user->execute([$parent_id]);
 $parent_user = $stmt_p_user->fetch();
 
 // Fetch Student / Ward details (joined with users to get ward's profile photo)
-$stmt_st = $db->prepare("SELECT s.*, d.dept_name, d.dept_code, u.photo AS ward_photo FROM students s JOIN departments d ON s.department_id = d.id JOIN users u ON s.user_id = u.id WHERE s.id = ?");
-=======
-
-// Fetch Student / Ward details
-$stmt_st = $db->prepare("SELECT s.*, d.dept_name, d.dept_code FROM students s JOIN departments d ON s.department_id = d.id WHERE s.id = ?");
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
+$stmt_st = $db->prepare("SELECT s.*, d.dept_name, d.dept_code, u.photo AS ward_photo FROM students s JOIN departments d ON s.department_id = d.id LEFT JOIN users u ON s.user_id = u.id WHERE s.id = ?");
 $stmt_st->execute([$student_id]);
 $ward = $stmt_st->fetch();
+
+if (!$ward && !empty($parent_email)) {
+    $stmt_st2 = $db->prepare("SELECT s.*, d.dept_name, d.dept_code, u.photo AS ward_photo FROM students s JOIN departments d ON s.department_id = d.id LEFT JOIN users u ON s.user_id = u.id WHERE s.parent_email = ? LIMIT 1");
+    $stmt_st2->execute([$parent_email]);
+    $ward = $stmt_st2->fetch();
+    if ($ward) {
+        $_SESSION['student_id'] = $ward['id'];
+        $student_id = $ward['id'];
+    }
+}
 
 require_once __DIR__ . '/../includes/header.php';
 require_once __DIR__ . '/../includes/sidebar.php';
@@ -111,7 +115,6 @@ require_once __DIR__ . '/../includes/sidebar.php';
             <div class="col-md-5">
                 <div class="card border-0 shadow-sm p-4 text-center">
                     <div class="mb-3">
-<<<<<<< HEAD
                         <?php if (!empty($ward['ward_photo']) && file_exists(UPLOAD_DIR_PHOTOS . $ward['ward_photo'])): ?>
                             <img src="<?php echo BASE_URL; ?>/uploads/profile_photos/<?php echo htmlspecialchars($ward['ward_photo']); ?>" class="rounded-circle border border-3 border-primary shadow-sm" style="width:100px; height:100px; object-fit:cover;">
                         <?php else: ?>
@@ -119,11 +122,6 @@ require_once __DIR__ . '/../includes/sidebar.php';
                                 <?php echo strtoupper(substr($ward['name'] ?? 'S', 0, 1)); ?>
                             </div>
                         <?php endif; ?>
-=======
-                        <div class="bg-primary-soft text-primary rounded-circle mx-auto d-flex align-items-center justify-content-center fw-bold display-5" style="width:100px; height:100px;">
-                            <?php echo strtoupper(substr($ward['name'] ?? 'S', 0, 1)); ?>
-                        </div>
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
                     </div>
                     <h4 class="fw-bold mb-1"><?php echo htmlspecialchars($ward['name'] ?? 'N/A'); ?></h4>
                     <p class="text-muted mb-2">Reg. No: <strong><?php echo htmlspecialchars($ward['register_number'] ?? 'N/A'); ?></strong></p>
@@ -141,7 +139,6 @@ require_once __DIR__ . '/../includes/sidebar.php';
             </div>
 
             <div class="col-md-7">
-<<<<<<< HEAD
                 <div class="card border-0 shadow-sm p-4 mb-4">
                     <h5 class="fw-bold mb-4 border-bottom pb-2"><i class="bi bi-shield-check text-success me-2"></i> Registered Parent / Guardian Details</h5>
                     
@@ -177,11 +174,6 @@ require_once __DIR__ . '/../includes/sidebar.php';
                         </div>
                     </div>
                     
-=======
-                <div class="card border-0 shadow-sm p-4">
-                    <h5 class="fw-bold mb-4 border-bottom pb-2"><i class="bi bi-shield-check text-success me-2"></i> Registered Parent / Guardian Details</h5>
-                    
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label text-muted small fw-bold">PARENT / GUARDIAN NAME</label>
@@ -202,7 +194,6 @@ require_once __DIR__ . '/../includes/sidebar.php';
                         <i class="bi bi-info-circle-fill me-2"></i> If parent contact information requires modification, please contact the institution Admin or Department HOD.
                     </div>
                 </div>
-<<<<<<< HEAD
 
                 <div class="card border-0 shadow-sm p-4">
                     <h5 class="fw-bold mb-3"><i class="bi bi-shield-lock text-primary me-2"></i> Change Password</h5>
@@ -223,8 +214,6 @@ require_once __DIR__ . '/../includes/sidebar.php';
                         <button type="submit" class="btn btn-primary btn-sm shadow-sm"><i class="bi bi-key me-1"></i> Update Password</button>
                     </form>
                 </div>
-=======
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
             </div>
         </div>
 

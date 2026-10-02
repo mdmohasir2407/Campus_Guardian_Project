@@ -10,7 +10,7 @@ $db = Database::getConnection();
 $dept_id = $_SESSION['department_id'] ?? 0;
 
 $lates = $db->query("SELECT l.*, s.name as student_name, s.register_number FROM late_entries l JOIN students s ON l.student_id = s.id WHERE s.department_id = $dept_id AND l.staff_approval = 'pending' ORDER BY l.id DESC")->fetchAll();
-$leaves = $db->query("SELECT lr.*, s.name as student_name, s.register_number FROM leave_requests lr JOIN students s ON lr.student_id = s.id WHERE s.department_id = $dept_id AND lr.staff_approval = 'pending' ORDER BY lr.id DESC")->fetchAll();
+$leaves = $db->query("SELECT lr.*, s.name as student_name, s.register_number, (SELECT status FROM parent_notifications pn WHERE pn.leave_request_id = lr.id LIMIT 1) as parent_status FROM leave_requests lr JOIN students s ON lr.student_id = s.id WHERE s.department_id = $dept_id AND lr.staff_approval = 'pending' ORDER BY lr.id DESC")->fetchAll();
 $halfs = $db->query("SELECT h.*, s.name as student_name, s.register_number FROM half_day_permissions h JOIN students s ON h.student_id = s.id WHERE s.department_id = $dept_id AND h.staff_approval = 'pending' ORDER BY h.id DESC")->fetchAll();
 
 require_once __DIR__ . '/../includes/header.php';
@@ -87,7 +87,14 @@ require_once __DIR__ . '/../includes/sidebar.php';
                                     <td class="fw-semibold text-dark"><?php echo htmlspecialchars($lr['student_name']); ?> (<?php echo $lr['register_number']; ?>)</td>
                                     <td><span class="badge bg-info text-dark"><?php echo htmlspecialchars($lr['leave_type']); ?></span></td>
                                     <td><?php echo format_date($lr['start_date']); ?> to <?php echo format_date($lr['end_date']); ?> (<?php echo $lr['total_days']; ?> days)</td>
-                                    <td class="small text-muted"><?php echo htmlspecialchars($lr['reason']); ?></td>
+                                    <td class="small text-muted">
+                                        <?php echo htmlspecialchars($lr['reason']); ?>
+                                        <?php if ($lr['parent_status'] === 'received'): ?>
+                                            <div class="mt-2"><span class="badge bg-success-soft"><i class="bi bi-check-all"></i> Parent Acknowledged</span></div>
+                                        <?php elseif ($lr['parent_status'] === 'sent'): ?>
+                                            <div class="mt-2"><span class="badge bg-warning-soft"><i class="bi bi-clock-history"></i> Parent Notified (Pending)</span></div>
+                                        <?php endif; ?>
+                                    </td>
                                     <td>
                                         <button class="btn btn-sm btn-success btn-action-modal me-1" data-id="<?php echo $lr['id']; ?>" data-type="leave_request" data-action="approved" data-student="<?php echo htmlspecialchars($lr['student_name']); ?>">Approve</button>
                                         <button class="btn btn-sm btn-outline-danger btn-action-modal" data-id="<?php echo $lr['id']; ?>" data-type="leave_request" data-action="rejected" data-student="<?php echo htmlspecialchars($lr['student_name']); ?>">Reject</button>

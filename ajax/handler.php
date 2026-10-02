@@ -63,8 +63,13 @@ if ($action === 'process_approval') {
             add_notification($req['student_user_id'], 'Late Entry ' . ucfirst($approval_status), "Your late entry request for " . format_date($req['date']) . " was " . $approval_status . " by " . strtoupper($role) . ".", $approval_status === 'approved' ? 'success' : 'danger');
 
             // Trigger Parent Email Notification
-            $email_body = EmailTemplates::getLateEntryNotification($req['student_name'], $req['date'], $req['arrival_time'], $req['late_minutes'], $req['reason'], $approval_status, $remarks);
-            CampusMailer::send($req['parent_email'], $req['parent_name'], "CampusGuardian: Late Entry Notice - " . ucfirst($approval_status), $email_body);
+            try {
+                $email_body = EmailTemplates::getLateEntryNotification($req['student_name'], $req['date'], $req['arrival_time'], $req['late_minutes'], $req['reason'], $approval_status, $remarks);
+                CampusMailer::send($req['parent_email'], $req['parent_name'], "CampusGuardian: Late Entry Notice - " . ucfirst($approval_status), $email_body);
+            } catch (Exception $e) {
+                // Log email error silently so it doesn't break the UI
+                error_log("Mail Error: " . $e->getMessage());
+            }
 
         } elseif ($request_type === 'leave_request') {
             $stmt = $db->prepare("SELECT l.*, s.name as student_name, s.user_id as student_user_id, s.parent_email, s.parent_name FROM leave_requests l JOIN students s ON l.student_id = s.id WHERE l.id = ?");
@@ -93,8 +98,12 @@ if ($action === 'process_approval') {
 
             add_notification($req['student_user_id'], 'Leave Application ' . ucfirst($approval_status), "Your " . $req['leave_type'] . " application has been " . $approval_status . ".", $approval_status === 'approved' ? 'success' : 'danger');
 
-            $email_body = EmailTemplates::getLeaveNotification($req['student_name'], $req['leave_type'], $req['start_date'], $req['end_date'], $req['reason'], $approval_status, $remarks);
-            CampusMailer::send($req['parent_email'], $req['parent_name'], "CampusGuardian: Leave Application " . ucfirst($approval_status), $email_body);
+            try {
+                $email_body = EmailTemplates::getLeaveNotification($req['student_name'], $req['leave_type'], $req['start_date'], $req['end_date'], $req['reason'], $approval_status, $remarks);
+                CampusMailer::send($req['parent_email'], $req['parent_name'], "CampusGuardian: Leave Application " . ucfirst($approval_status), $email_body);
+            } catch (Exception $e) {
+                error_log("Mail Error: " . $e->getMessage());
+            }
 
         } elseif ($request_type === 'half_day') {
             $stmt = $db->prepare("SELECT h.*, s.name as student_name, s.user_id as student_user_id, s.parent_email, s.parent_name FROM half_day_permissions h JOIN students s ON h.student_id = s.id WHERE h.id = ?");

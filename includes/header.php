@@ -24,4 +24,7 @@ require_once __DIR__ . '/../config/config.php';
     <link href="<?php echo BASE_URL; ?>/assets/css/style.css" rel="stylesheet">
 </head>
 <body data-user-role="<?php echo $_SESSION['role'] ?? ''; ?>">
+<!-- 3D Animated Background Container -->
+<div id="vanta-bg" style="position: fixed; z-index: -2; top: 0; left: 0; width: 100%; height: 100%;"></div>
+
 <div id="wrapper">

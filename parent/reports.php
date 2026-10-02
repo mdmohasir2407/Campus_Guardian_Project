@@ -16,6 +16,16 @@ $stmt_st = $db->prepare("SELECT s.*, d.dept_name, d.dept_code FROM students s JO
 $stmt_st->execute([$student_id]);
 $ward = $stmt_st->fetch();
 
+if (!$ward && !empty($parent_email)) {
+    $stmt_st2 = $db->prepare("SELECT s.*, d.dept_name, d.dept_code FROM students s JOIN departments d ON s.department_id = d.id WHERE s.parent_email = ? LIMIT 1");
+    $stmt_st2->execute([$parent_email]);
+    $ward = $stmt_st2->fetch();
+    if ($ward) {
+        $_SESSION['student_id'] = $ward['id'];
+        $student_id = $ward['id'];
+    }
+}
+
 $selected_month = sanitize($_GET['month'] ?? date('Y-m'));
 
 // Fetch Monthly Leaves

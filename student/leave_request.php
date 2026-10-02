@@ -60,12 +60,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'PENDING REVIEW', 
                 'Leave application submitted by student; pending faculty verification.'
             );
-            CampusMailer::send(
-                $student_data['parent_email'], 
-                $student_data['parent_name'], 
-                "CampusGuardian Leave Notice: Application Filed for " . $student_data['name'], 
-                $email_html
-            );
+            try {
+                CampusMailer::send(
+                    $student_data['parent_email'], 
+                    $student_data['parent_name'], 
+                    "CampusGuardian Leave Notice: Application Filed for " . $student_data['name'], 
+                    $email_html
+                );
+            } catch (Exception $e) {
+                error_log("Mail Error: " . $e->getMessage());
+            }
         }
 
         set_flash('success', 'Leave application submitted successfully for ' . $total_days . ' day(s)! Parent email notice logged.');

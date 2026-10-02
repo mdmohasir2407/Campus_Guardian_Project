@@ -49,7 +49,11 @@ try {
 
         // Dispatch Urgent Parent Email
         $email_html = EmailTemplates::getAbsenceAlertNotification($student['name'], $student['register_number'], $today, format_time($cutoff_time));
-        CampusMailer::send($student['parent_email'], $student['parent_name'], "URGENT: CampusGuardian Student Absence Alert - " . $student['name'], $email_html);
+        try {
+            CampusMailer::send($student['parent_email'], $student['parent_name'], "URGENT: CampusGuardian Student Absence Alert - " . $student['name'], $email_html);
+        } catch (Exception $e) {
+            error_log("Mail Error: " . $e->getMessage());
+        }
     }
 
     echo json_encode([

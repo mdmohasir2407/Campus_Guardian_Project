@@ -14,27 +14,17 @@ $departments = $db->query("SELECT * FROM departments ORDER BY dept_name ASC")->f
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $reg_no = sanitize($_POST['register_number'] ?? '');
-<<<<<<< HEAD
     $student_code = 'STD-' . $reg_no; // Auto-generate to ensure uniqueness
     $course_type = sanitize($_POST['course_type'] ?? 'UG');
     $name = sanitize($_POST['name'] ?? '');
     $email = sanitize($_POST['email'] ?? '');
-=======
-    $student_code = sanitize($_POST['student_id_code'] ?? '');
-    $name = sanitize($_POST['name'] ?? '');
-    $email = sanitize($_POST['student_email'] ?? '');
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
     $department_id = (int)($_POST['department_id'] ?? 0);
     $year = sanitize($_POST['year'] ?? 'I');
     $section = sanitize($_POST['section'] ?? 'A');
     $phone = sanitize($_POST['phone'] ?? '');
     $parent_name = sanitize($_POST['parent_name'] ?? '');
     $parent_phone = sanitize($_POST['parent_phone'] ?? '');
-<<<<<<< HEAD
-    $parent_email = '';
-=======
     $parent_email = sanitize($_POST['parent_email'] ?? '');
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
     $password = $_POST['password'] ?? '';
     $confirm_password = $_POST['confirm_password'] ?? '';
 
@@ -60,15 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $user_id = $db->lastInsertId();
 
                 // 2. Create student profile
-<<<<<<< HEAD
                 $s_stmt = $db->prepare("INSERT INTO students (user_id, register_number, student_id_code, course_type, name, department_id, year, section, phone, parent_name, parent_phone, parent_email, student_email) 
                                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $s_stmt->execute([$user_id, $reg_no, $student_code, $course_type, $name, $department_id, $year, $section, $phone, $parent_name, $parent_phone, $parent_email, $email]);
-=======
-                $s_stmt = $db->prepare("INSERT INTO students (user_id, register_number, student_id_code, name, department_id, year, section, phone, parent_name, parent_phone, parent_email, student_email) 
-                                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                $s_stmt->execute([$user_id, $reg_no, $student_code, $name, $department_id, $year, $section, $phone, $parent_name, $parent_phone, $parent_email, $email]);
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
 
                 // 3. Provision Parent user account
                 if (!empty($parent_email)) {
@@ -104,16 +88,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <style>
         body {
             font-family: 'Inter', sans-serif;
-<<<<<<< HEAD
-=======
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #090d16 100%);
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 30px 15px;
-<<<<<<< HEAD
             position: relative;
             overflow-x: hidden;
         }
@@ -154,24 +133,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 1.25rem;
             letter-spacing: 0.3px;
         }
-=======
-        }
-        .reg-card {
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            width: 100%;
-            max-width: 750px;
-            overflow: hidden;
-        }
-        .reg-header {
-            background: #0f172a;
-            color: #ffffff;
-            padding: 25px 30px;
-        }
-
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
         @media (max-width: 575px) {
             body {
                 padding: 15px 10px;
@@ -192,11 +153,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
-<<<<<<< HEAD
 <div class="bg-image"></div>
 <div class="bg-overlay"></div>
-=======
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
 
 <div class="reg-card">
     <div class="reg-header d-flex justify-content-between align-items-center">
@@ -218,20 +176,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="text" name="register_number" class="form-control" placeholder="e.g. 2024MCA045" required>
                 </div>
                 <div class="col-md-6">
-<<<<<<< HEAD
-=======
-                    <label class="form-label fw-semibold">Student ID Code *</label>
-                    <input type="text" name="student_id_code" class="form-control" placeholder="e.g. STD-MCA-102" required>
-                </div>
-                <div class="col-md-6">
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
                     <label class="form-label fw-semibold">Full Student Name *</label>
                     <input type="text" name="name" class="form-control" placeholder="Full Name" required>
                 </div>
+                
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Student Email *</label>
-<<<<<<< HEAD
                     <input type="email" name="email" class="form-control" placeholder="student@example.com" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Student Phone Number *</label>
+                    <input type="text" name="phone" class="form-control" placeholder="9876543210" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Course Type *</label>
+                    <select name="course_type" id="course_type" class="form-select" required>
+                        <option value="UG">UG (Undergraduate)</option>
+                        <option value="PG">PG (Postgraduate)</option>
+                    </select>
                 </div>
                 <div class="col-md-4">
                     <label class="form-label fw-semibold">Department *</label>
@@ -243,70 +206,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $dtype = in_array($d['dept_code'], $pg_codes) ? 'PG' : 'UG';
                         ?>
                             <option value="<?php echo $d['id']; ?>" data-type="<?php echo $dtype; ?>"><?php echo htmlspecialchars($d['dept_name']); ?> (<?php echo $d['dept_code']; ?>)</option>
-=======
-                    <input type="email" name="student_email" class="form-control" placeholder="student@campusguardian.edu" required>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label fw-semibold">Department *</label>
-                    <select name="department_id" class="form-select" required>
-                        <?php foreach ($departments as $d): ?>
-                            <option value="<?php echo $d['id']; ?>"><?php echo htmlspecialchars($d['dept_name']); ?> (<?php echo $d['dept_code']; ?>)</option>
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <div class="col-md-4">
-                    <label class="form-label fw-semibold">Academic Year *</label>
-<<<<<<< HEAD
+                <div class="col-md-2">
+                    <label class="form-label fw-semibold">Year *</label>
                     <select name="year" id="academic_year" class="form-select" required>
-=======
-                    <select name="year" class="form-select" required>
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
                         <option value="I">I Year</option>
                         <option value="II">II Year</option>
                         <option value="III">III Year</option>
                         <option value="IV">IV Year</option>
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <label class="form-label fw-semibold">Section *</label>
-<<<<<<< HEAD
                     <select name="section" class="form-select" required>
-                        <option value="A">Section A</option>
-                        <option value="B">Section B</option>
-                        <option value="C">Section C</option>
-                        <option value="D">Section D</option>
+                        <option value="A">Sec A</option>
+                        <option value="B">Sec B</option>
+                        <option value="C">Sec C</option>
+                        <option value="D">Sec D</option>
                     </select>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Course Type *</label>
-                    <select name="course_type" id="course_type" class="form-select" required>
-                        <option value="UG">UG (Undergraduate)</option>
-                        <option value="PG">PG (Postgraduate)</option>
-                    </select>
-=======
-                    <input type="text" name="section" class="form-control" value="A" required>
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Student Phone Number *</label>
-                    <input type="text" name="phone" class="form-control" placeholder="9876543210" required>
                 </div>
             </div>
 
             <h6 class="fw-bold text-primary mb-3"><i class="bi bi-people-fill me-1"></i> Parent / Guardian Contact Details (For Emergency & Leave Alerts)</h6>
             <div class="row g-3 mb-4">
-<<<<<<< HEAD
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Parent Name *</label>
-                    <input type="text" name="parent_name" class="form-control" placeholder="Father / Mother Name" required>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Parent Phone *</label>
-                    <input type="text" name="parent_phone" class="form-control" placeholder="Parent Mobile Number" required>
-                </div>
-
-=======
                 <div class="col-md-4">
                     <label class="form-label fw-semibold">Parent Name *</label>
                     <input type="text" name="parent_name" class="form-control" placeholder="Father / Mother Name" required>
@@ -319,7 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label class="form-label fw-semibold">Parent Email *</label>
                     <input type="email" name="parent_email" class="form-control" placeholder="parent@example.com" required>
                 </div>
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
+
             </div>
 
             <h6 class="fw-bold text-primary mb-3"><i class="bi bi-shield-lock me-1"></i> Security Password</h6>
@@ -358,7 +282,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/main.js"></script>
-<<<<<<< HEAD
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const courseTypeSelect = document.getElementById('course_type');
@@ -402,7 +325,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-=======
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
 </body>
 </html>

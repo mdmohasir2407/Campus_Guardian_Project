@@ -10,19 +10,26 @@ $db = Database::getConnection();
 
 $parent_email = $_SESSION['parent_email'] ?? '';
 $student_id = $_SESSION['student_id'] ?? 0;
-<<<<<<< HEAD
 $user_id = $_SESSION['user_id'] ?? 0;
 
 if ($user_id) {
     $db->prepare("UPDATE notifications SET is_read = 1 WHERE user_id = ? AND is_read = 0")->execute([$user_id]);
 }
-=======
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
 
 // Fetch Student / Ward details
 $stmt_st = $db->prepare("SELECT s.*, d.dept_name, d.dept_code FROM students s JOIN departments d ON s.department_id = d.id WHERE s.id = ?");
 $stmt_st->execute([$student_id]);
 $ward = $stmt_st->fetch();
+
+if (!$ward && !empty($parent_email)) {
+    $stmt_st2 = $db->prepare("SELECT s.*, d.dept_name, d.dept_code FROM students s JOIN departments d ON s.department_id = d.id WHERE s.parent_email = ? LIMIT 1");
+    $stmt_st2->execute([$parent_email]);
+    $ward = $stmt_st2->fetch();
+    if ($ward) {
+        $_SESSION['student_id'] = $ward['id'];
+        $student_id = $ward['id'];
+    }
+}
 
 $filter = sanitize($_GET['filter'] ?? 'all');
 $sql = "SELECT pn.*, lr.leave_type, lr.start_date, lr.end_date, lr.total_days, lr.status as leave_status FROM parent_notifications pn LEFT JOIN leave_requests lr ON pn.leave_request_id = lr.id WHERE pn.student_id = ?";

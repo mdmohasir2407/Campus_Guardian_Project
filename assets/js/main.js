@@ -48,25 +48,7 @@ $(document).ready(function () {
         }
     });
 
-    // 2. Dark Mode Toggle & Persistence
-    const currentTheme = localStorage.getItem('cg_theme') || 'light';
-    if (currentTheme === 'dark') {
-        $('html').attr('data-theme', 'dark');
-        $('#themeIcon').removeClass('bi-moon-stars-fill').addClass('bi-sun-fill');
-    }
-
-    $('#btnThemeToggle').on('click', function () {
-        let activeTheme = $('html').attr('data-theme');
-        if (activeTheme === 'dark') {
-            $('html').removeAttr('data-theme');
-            localStorage.setItem('cg_theme', 'light');
-            $('#themeIcon').removeClass('bi-sun-fill').addClass('bi-moon-stars-fill');
-        } else {
-            $('html').attr('data-theme', 'dark');
-            localStorage.setItem('cg_theme', 'dark');
-            $('#themeIcon').removeClass('bi-moon-stars-fill').addClass('bi-sun-fill');
-        }
-    });
+    // Dark mode removed per user request.
 
     // 3. Initialize Bootstrap Tooltips
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));

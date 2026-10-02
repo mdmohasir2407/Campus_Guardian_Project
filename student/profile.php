@@ -9,7 +9,6 @@ $page_title = "User Profile & Security";
 $db = Database::getConnection();
 $user_id = $_SESSION['user_id'] ?? 0;
 
-<<<<<<< HEAD
 // Photo Update
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update_photo') {
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
@@ -65,8 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     redirect($_SESSION['role'] . '/profile.php');
 }
 
-=======
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
 // Password Update
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update_password') {
     $current_pass = $_POST['current_password'] ?? '';
@@ -92,13 +89,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 }
 
 // Fetch user profile info
-<<<<<<< HEAD
 $stmt_u = $db->prepare("SELECT * FROM users WHERE id = ?");
 $stmt_u->execute([$user_id]);
 $user_info = $stmt_u->fetch();
-=======
-$user_info = $db->query("SELECT * FROM users WHERE id = $user_id")->fetch();
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
 
 require_once __DIR__ . '/../includes/header.php';
 require_once __DIR__ . '/../includes/sidebar.php';
@@ -118,7 +111,6 @@ require_once __DIR__ . '/../includes/sidebar.php';
         <div class="row g-4" style="max-width:900px;">
             <div class="col-md-5">
                 <div class="card border-0 shadow-sm p-4 text-center">
-<<<<<<< HEAD
                     <div class="position-relative d-inline-block mx-auto mb-3">
                         <?php if (!empty($user_info['photo']) && file_exists(UPLOAD_DIR_PHOTOS . $user_info['photo'])): ?>
                             <img src="<?php echo BASE_URL; ?>/uploads/profile_photos/<?php echo htmlspecialchars($user_info['photo']); ?>" class="rounded-circle border border-3 border-primary shadow-sm" style="width:110px; height:110px; object-fit:cover;">
@@ -149,14 +141,6 @@ require_once __DIR__ . '/../includes/sidebar.php';
                             <button type="submit" class="btn btn-outline-danger btn-sm w-100" onclick="return confirm('Are you sure you want to remove your profile photo?');"><i class="bi bi-trash me-1"></i> Remove Photo</button>
                         </form>
                     <?php endif; ?>
-=======
-                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mx-auto mb-3 fw-bold display-5" style="width:90px; height:90px;">
-                        <?php echo strtoupper(substr($_SESSION['name'], 0, 1)); ?>
-                    </div>
-                    <h5 class="fw-bold text-dark mb-1"><?php echo htmlspecialchars($_SESSION['name']); ?></h5>
-                    <span class="badge bg-primary text-uppercase px-3 py-2 mb-2 d-inline-block mx-auto"><?php echo $_SESSION['role']; ?></span>
-                    <p class="text-muted small mb-0"><i class="bi bi-envelope me-1"></i><?php echo htmlspecialchars($user_info['email']); ?></p>
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
                 </div>
             </div>
 

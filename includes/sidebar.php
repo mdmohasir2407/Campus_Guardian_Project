@@ -37,12 +37,9 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <li class="<?php echo $currentPage === 'reports.php' ? 'active' : ''; ?>">
                 <a href="<?php echo BASE_URL; ?>/admin/reports.php"><i class="bi bi-file-earmark-bar-graph"></i> System Reports</a>
             </li>
-<<<<<<< HEAD
             <li class="<?php echo $currentPage === 'notifications.php' ? 'active' : ''; ?>">
                 <a href="<?php echo BASE_URL; ?>/admin/notifications.php"><i class="bi bi-bell"></i> Notifications</a>
             </li>
-=======
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
             <li class="<?php echo $currentPage === 'settings.php' ? 'active' : ''; ?>">
                 <a href="<?php echo BASE_URL; ?>/admin/settings.php"><i class="bi bi-sliders"></i> Settings</a>
             </li>
@@ -60,12 +57,9 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <li class="<?php echo $currentPage === 'performance.php' ? 'active' : ''; ?>">
                 <a href="<?php echo BASE_URL; ?>/hod/performance.php"><i class="bi bi-graph-up-arrow"></i> Student Performance</a>
             </li>
-<<<<<<< HEAD
             <li class="<?php echo $currentPage === 'notifications.php' ? 'active' : ''; ?>">
                 <a href="<?php echo BASE_URL; ?>/hod/notifications.php"><i class="bi bi-bell"></i> Notifications</a>
             </li>
-=======
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
             <li class="<?php echo $currentPage === 'profile.php' ? 'active' : ''; ?>">
                 <a href="<?php echo BASE_URL; ?>/hod/profile.php"><i class="bi bi-person-circle"></i> Profile</a>
             </li>
@@ -80,12 +74,9 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <li class="<?php echo $currentPage === 'history.php' ? 'active' : ''; ?>">
                 <a href="<?php echo BASE_URL; ?>/staff/history.php"><i class="bi bi-clock-history"></i> Approval History</a>
             </li>
-<<<<<<< HEAD
             <li class="<?php echo $currentPage === 'notifications.php' ? 'active' : ''; ?>">
                 <a href="<?php echo BASE_URL; ?>/staff/notifications.php"><i class="bi bi-bell"></i> Notifications</a>
             </li>
-=======
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
             <li class="<?php echo $currentPage === 'profile.php' ? 'active' : ''; ?>">
                 <a href="<?php echo BASE_URL; ?>/staff/profile.php"><i class="bi bi-person-circle"></i> Profile</a>
             </li>

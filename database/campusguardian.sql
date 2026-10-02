@@ -101,10 +101,7 @@ CREATE TABLE `students` (
   `user_id` INT NOT NULL,
   `register_number` VARCHAR(30) NOT NULL UNIQUE,
   `student_id_code` VARCHAR(30) NOT NULL UNIQUE,
-<<<<<<< HEAD
   `course_type` VARCHAR(10) DEFAULT 'UG',
-=======
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
   `name` VARCHAR(100) NOT NULL,
   `department_id` INT NOT NULL,
   `year` VARCHAR(10) NOT NULL,
@@ -122,15 +119,9 @@ CREATE TABLE `students` (
   INDEX `idx_dept` (`department_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-<<<<<<< HEAD
 INSERT INTO `students` (`id`, `user_id`, `register_number`, `student_id_code`, `course_type`, `name`, `department_id`, `year`, `section`, `phone`, `parent_name`, `parent_phone`, `parent_email`, `student_email`, `photo`) VALUES
 (1, 4, '2024MCA001', 'STD-MCA-101', 'PG', 'Rahul Sharma', 2, 'II', 'A', '9123456789', 'Suresh Sharma', '9898989898', 'parent.rahul@example.com', 'rahul.mca24@campusguardian.edu', 'default_avatar.png'),
 (2, 6, '2024CSE042', 'STD-CSE-205', 'UG', 'Priya Patel', 1, 'III', 'B', '9123456790', 'Ramesh Patel', '9898989899', 'parent.priya@example.com', 'priya.student@campusguardian.edu', 'default_avatar.png');
-=======
-INSERT INTO `students` (`id`, `user_id`, `register_number`, `student_id_code`, `name`, `department_id`, `year`, `section`, `phone`, `parent_name`, `parent_phone`, `parent_email`, `student_email`, `photo`) VALUES
-(1, 4, '2024MCA001', 'STD-MCA-101', 'Rahul Sharma', 2, 'II', 'A', '9123456789', 'Suresh Sharma', '9898989898', 'parent.rahul@example.com', 'rahul.mca24@campusguardian.edu', 'default_avatar.png'),
-(2, 6, '2024CSE042', 'STD-CSE-205', 'Priya Patel', 1, 'III', 'B', '9123456790', 'Ramesh Patel', '9898989899', 'parent.priya@example.com', 'priya.student@campusguardian.edu', 'default_avatar.png');
->>>>>>> 46e8e96fd34928274cd800f4a3cc75a72bc4109b
 
 -- --------------------------------------------------------
 -- Table 6: `attendance`
